@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Emu/Cell/PPCThread.h"
 #include "Emu/SysCalls/SysCalls.h"
-#include "rpcs3.h"
+//#include "rpcs3.h" //GUI dependency
 #include <cmath>
 
 enum

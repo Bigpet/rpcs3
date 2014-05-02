@@ -3,7 +3,6 @@
 #include "Emu/GS/RSXThread.h"
 #include "GLBuffers.h"
 #include "GLProgramBuffer.h"
-#include <wx/glcanvas.h>
 
 #pragma comment(lib, "opengl32.lib")
 
@@ -498,7 +497,7 @@ public:
 		}
 	}
 
-	void Save(RSXTexture& tex, const wxString& name)
+	void Save(RSXTexture& tex, const std::string& name)
 	{
 		if(!m_id || !tex.GetOffset() || !tex.GetWidth() || !tex.GetHeight()) return;
 
@@ -524,7 +523,7 @@ public:
 		}
 
 		{
-			wxFile f(name + ".raw", wxFile::write);
+			rFile f(name + ".raw", rFile::write);
 			f.Write(alldata, texPixelCount * 4);
 		}
 		u8* data = new u8[texPixelCount * 3];
@@ -541,9 +540,9 @@ public:
 			*dst_a++ = *src++;
 		}
 
-		wxImage out;
+		rImage out;
 		out.Create(tex.GetWidth(), tex.GetHeight(), data, alpha);
-		out.SaveFile(name, wxBITMAP_TYPE_PNG);
+		out.SaveFile(name, rBITMAP_TYPE_PNG);
 
 		delete[] alldata;
 		//free(data);
@@ -552,14 +551,14 @@ public:
 
 	void Save(RSXTexture& tex)
 	{
-		static const wxString& dir_path = "textures";
-		static const wxString& file_fmt = dir_path + "/" + "tex[%d].png";
+		static const std::string& dir_path = "textures";
+		static const std::string& file_fmt = dir_path + "/" + "tex[%d].png";
 
-		if(!wxDirExists(dir_path)) wxMkdir(dir_path);
+		if(!rDirExists(dir_path)) rMkdir(dir_path);
 
 		u32 count = 0;
-		while(wxFileExists(wxString::Format(file_fmt, count))) count++;
-		Save(tex, wxString::Format(file_fmt, count));
+		while(rFileExists(fmt::Format(file_fmt, count))) count++;
+		Save(tex, fmt::Format(file_fmt, count));
 	}
 
 	void Bind()
@@ -580,24 +579,6 @@ public:
 			m_id = 0;
 		}
 	}
-};
-
-struct GLGSFrame : public GSFrame
-{
-	wxGLCanvas* canvas;
-	u32 m_frames;
-
-	GLGSFrame();
-	~GLGSFrame() {}
-
-	void Flip(wxGLContext *context);
-
-	wxGLCanvas* GetCanvas() const { return canvas; }
-
-	virtual void SetViewport(int x, int y, u32 w, u32 h);
-
-private:
-	virtual void OnSize(wxSizeEvent& event);
 };
 
 class PostDrawObj
@@ -784,9 +765,9 @@ public:
 	}
 };
 
-class GLGSRender
-	: public wxWindow
-	, public GSRender
+class GLGSRender //TODO: find out why this used to inherit from wxWindow
+	: //public wxWindow
+	/*,*/ public GSRender
 {
 private:
 	std::vector<u8> m_vdata;
@@ -807,10 +788,10 @@ private:
 	GLrbo m_rbo;
 	GLfbo m_fbo;
 
-	wxGLContext* m_context;
+	void* m_context;
 
 public:
-	GLGSFrame* m_frame;
+	rGLFrame* m_frame;
 	u32 m_draw_frames;
 	u32 m_skip_frames;
 

@@ -289,6 +289,12 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Utilities\rConcurrency.cpp" />
+    <ClCompile Include="..\Utilities\rFile.cpp" />
+    <ClCompile Include="..\Utilities\rMsgBox.cpp" />
+    <ClCompile Include="..\Utilities\rPlatform.cpp" />
+    <ClCompile Include="..\Utilities\rTime.cpp" />
+    <ClCompile Include="..\Utilities\rXml.cpp" />
     <ClCompile Include="..\Utilities\SMutex.cpp" />
     <ClCompile Include="..\Utilities\StrFmt.cpp" />
     <ClCompile Include="..\Utilities\Thread.cpp" />
@@ -322,6 +328,7 @@
     <ClCompile Include="Emu\Cell\SPUThread.cpp" />
     <ClCompile Include="Emu\CPU\CPUThread.cpp" />
     <ClCompile Include="Emu\CPU\CPUThreadManager.cpp" />
+    <ClCompile Include="Emu\DbgCommand.cpp" />
     <ClCompile Include="Emu\DbgConsole.cpp" />
     <ClCompile Include="Emu\Event.cpp" />
     <ClCompile Include="Emu\FS\VFS.cpp" />
@@ -379,6 +386,7 @@
     <ClCompile Include="Emu\SysCalls\lv2\SC_Trace.cpp" />
     <ClCompile Include="Emu\SysCalls\lv2\SC_TTY.cpp" />
     <ClCompile Include="Emu\SysCalls\lv2\SC_VM.cpp" />
+    <ClCompile Include="Emu\SysCalls\ModuleManager.cpp" />
     <ClCompile Include="Emu\SysCalls\Modules.cpp" />
     <ClCompile Include="Emu\SysCalls\Modules\cellAdec.cpp" />
     <ClCompile Include="Emu\SysCalls\Modules\cellAtrac.cpp" />
@@ -455,6 +463,8 @@
     <ClCompile Include="Gui\Debugger.cpp" />
     <ClCompile Include="Gui\DisAsmFrame.cpp" />
     <ClCompile Include="Gui\GameViewer.cpp" />
+    <ClCompile Include="Gui\GLGSFrame.cpp" />
+    <ClCompile Include="Gui\GSFrame.cpp" />
     <ClCompile Include="Gui\InterpreterDisAsm.cpp" />
     <ClCompile Include="Gui\MainFrame.cpp" />
     <ClCompile Include="Gui\MemoryViewer.cpp" />
@@ -492,6 +502,12 @@
     <ClInclude Include="..\Utilities\BEType.h" />
     <ClInclude Include="..\Utilities\IdManager.h" />
     <ClInclude Include="..\Utilities\MTProgressDialog.h" />
+    <ClInclude Include="..\Utilities\rConcurrency.h" />
+    <ClInclude Include="..\Utilities\rFile.h" />
+    <ClInclude Include="..\Utilities\rMsgBox.h" />
+    <ClInclude Include="..\Utilities\rPlatform.h" />
+    <ClInclude Include="..\Utilities\rTime.h" />
+    <ClInclude Include="..\Utilities\rXml.h" />
     <ClInclude Include="..\Utilities\SMutex.h" />
     <ClInclude Include="..\Utilities\SQueue.h" />
     <ClInclude Include="..\Utilities\StrFmt.h" />
@@ -541,6 +557,7 @@
     <ClInclude Include="Emu\CPU\CPUInstrTable.h" />
     <ClInclude Include="Emu\CPU\CPUThread.h" />
     <ClInclude Include="Emu\CPU\CPUThreadManager.h" />
+    <ClInclude Include="Emu\DbgCommand.h" />
     <ClInclude Include="Emu\DbgConsole.h" />
     <ClInclude Include="Emu\FS\VFS.h" />
     <ClInclude Include="Emu\FS\vfsDevice.h" />
@@ -598,6 +615,7 @@
     <ClInclude Include="Emu\SysCalls\lv2\SC_SPU_Thread.h" />
     <ClInclude Include="Emu\SysCalls\lv2\SC_Time.h" />
     <ClInclude Include="Emu\SysCalls\lv2\SC_Timer.h" />
+    <ClInclude Include="Emu\SysCalls\ModuleManager.h" />
     <ClInclude Include="Emu\SysCalls\Modules.h" />
     <ClInclude Include="Emu\SysCalls\Modules\cellAdec.h" />
     <ClInclude Include="Emu\SysCalls\Modules\cellAtrac.h" />
@@ -630,6 +648,8 @@
     <ClInclude Include="Gui\DisAsmFrame.h" />
     <ClInclude Include="Gui\FrameBase.h" />
     <ClInclude Include="Gui\GameViewer.h" />
+    <ClInclude Include="Gui\GLGSFrame.h" />
+    <ClInclude Include="Gui\GSFrame.h" />
     <ClInclude Include="Gui\InterpreterDisAsm.h" />
     <ClInclude Include="Gui\MainFrame.h" />
     <ClInclude Include="Gui\MemoryViewer.h" />

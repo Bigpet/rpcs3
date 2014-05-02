@@ -62,7 +62,7 @@ std::string GLVertexDecompilerThread::GetDST(bool isSca)
 	break;
 
 	default:
-		if(d3.dst < WXSIZEOF(reg_table))
+		if(d3.dst < SARRSIZEOF(reg_table))
 		{
 			ret += m_parr.AddParam(PARAM_OUT, "vec4", reg_table[d3.dst]);
 		}
@@ -97,7 +97,7 @@ std::string GLVertexDecompilerThread::GetSRC(const u32 n, bool isSca)
 		ret += m_parr.AddParam(PARAM_NONE, "vec4", std::string("tmp") + std::to_string(src[n].tmp_src));
 	break;
 	case 2: //input
-		if(d1.input_src < WXSIZEOF(reg_table))
+		if (d1.input_src < SARRSIZEOF(reg_table))
 		{
 			ret += m_parr.AddParam(PARAM_IN, "vec4", reg_table[d1.input_src], d1.input_src);
 		}
