@@ -1,0 +1,11 @@
+
+
+platform:
+  - x64
+
+configuration:
+  - Release
+
+test: OFF
+
+deploy: OFF
