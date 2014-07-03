@@ -6,6 +6,9 @@ platform:
 configuration:
   - Release
 
+before_build:
+  - cmd: git submodule update --init
+
 test: OFF
 
 deploy: OFF
