@@ -421,6 +421,12 @@ void Emulator::Stop()
 
 	//if(m_memory_viewer && m_memory_viewer->IsShown()) m_memory_viewer->Hide();
 	SendDbgCommand(DID_STOPPED_EMU);
+	
+	if (Ini.HLEExitOnStop.GetValue())
+	{
+		Ini.HLEExitOnStop.SetValue(false);
+		wxGetApp().Exit();
+	}
 }
 
 void Emulator::SavePoints(const std::string& path)

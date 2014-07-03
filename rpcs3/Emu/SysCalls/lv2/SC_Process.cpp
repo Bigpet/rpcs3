@@ -28,8 +28,10 @@ int sys_process_exit(s32 errorcode)
 
 	if (Ini.HLEExitOnStop.GetValue())
 	{
-		Ini.HLEExitOnStop.SetValue(false);
-		// TODO: Find a way of calling Emu.Stop() and/or exiting RPCS3 (that is, TheApp->Exit()) without crashes
+		//them hacks are mounting
+		//TODO: clean this up
+		std::thread t([](){Emu.Stop();});
+		t.detach();
 	}
 	return CELL_OK;
 }
