@@ -1,5 +1,22 @@
 
 
+# version format
+version: 0.1.{build}
+
+branches:
+  only:
+    - appveyorbuild
+  # blacklist
+  #except:
+  #  - gh-pages
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# clone directory
+clone_folder: c:\projects\rpcs3
+
 platform:
   - x64
 
