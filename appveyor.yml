@@ -9,6 +9,9 @@ configuration:
 before_build:
   - cmd: git submodule update --init
   
+build:
+  - project: rpcs3.sln
+  
 after_build:
   - cmd: package.bat
 
