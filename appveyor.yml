@@ -12,6 +12,20 @@ before_build:
 after_build:
   - cmd: package.bat
 
+artifacts:
+  # pushing a single file
+  - path: *.7z
+
+deploy:
+  provider: FTP
+  server: 
+    secure: kZT7rsbEPGQ0fC2GFRBGfL2vPwUgih2JkwjbSuw00T8=
+  username:
+    secure: YJzwsi4wfSezFLqaB9uiww==
+  password:
+    secure: EQ3xa2LoRgelAdE57+qakQ==
+  folder: rpcs3
+  enable_ssl: false
+  
 test: OFF
 
-deploy: OFF
