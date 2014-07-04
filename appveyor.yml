@@ -23,8 +23,13 @@ platform:
 configuration:
   - Release
 
-before_build:
-  - cmd: git submodule update --init
+install:
+  - cmd: cinst wget -x86
+  - cmd: cinst 7zip.commandline -x86
+  - cmd: git submodule update --init --recursive .\ffmpeg .\asmjit
+  - cmd: wget -q http://googledrive.com/host/0B3tDmChwjRbRTTdhaTFOeGN1eEU/wxWidgets.7z -O C:\projects\rpcs3\wxwidgets.7z
+  - cmd: mkdir c:\projects\rpcs3\wxWidgets
+  - cmd: 7z x C:\projects\rpcs3\wxwidgets.7z -oc:\projects\rpcs3\
   
 build:
 
