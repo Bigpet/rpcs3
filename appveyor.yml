@@ -27,7 +27,7 @@ install:
   - cmd: cinst wget -x86
   - cmd: cinst 7zip.commandline -x86
   - cmd: git submodule update --init --recursive .\ffmpeg .\asmjit
-  - cmd: wget http://googledrive.com/host/0B3tDmChwjRbRTTdhaTFOeGN1eEU/wxWidgets.7z -O c:\projects\rpcs3\wxwidgets.7z
+  - cmd: wget --no-check-certificate https://googledrive.com/host/0B3tDmChwjRbRTTdhaTFOeGN1eEU/wxWidgets.7z -O c:\projects\rpcs3\wxwidgets.7z
   - cmd: mkdir c:\projects\rpcs3\wxWidgets
   - cmd: 7z x C:\projects\rpcs3\wxwidgets.7z -oc:\projects\rpcs3\
   
