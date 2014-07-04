@@ -13,7 +13,7 @@ after_build:
   - cmd: package.bat
 
 artifacts:
-  - path: *.7z
+  - path: ./rpcs3*.7z
 
 
   
