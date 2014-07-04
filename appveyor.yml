@@ -6,12 +6,13 @@ platform:
 configuration:
   - Release
 
-
 before_build:
   - cmd: git submodule update --init
 
 build:
-  project: rpcs3.sln
+
+build_script:
+  - msbuild /m /p:Configuration=Release rpcs3.sln
   
 after_build:
   - cmd: package.bat
