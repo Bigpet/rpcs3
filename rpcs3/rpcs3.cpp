@@ -28,15 +28,18 @@ bool Rpcs3App::OnInit()
 
 	Ini.Load();
 
-	m_MainFrame = new MainFrame();
-	SetTopWindow(m_MainFrame);
 	Emu.Init();
-
-	m_MainFrame->Show();
-	m_MainFrame->DoSettings(true);
-
 	OnArguments();
 
+	if(use_gui)
+	{
+		m_MainFrame = new MainFrame();
+		SetTopWindow(m_MainFrame);
+
+		m_MainFrame->Show();
+		m_MainFrame->DoSettings(true);
+	}
+	
 	return true;
 }
 
@@ -45,12 +48,20 @@ void Rpcs3App::OnArguments()
 	// Usage:
 	//   rpcs3-*.exe               Initializes RPCS3
 	//   rpcs3-*.exe [(S)ELF]      Initializes RPCS3, then loads and runs the specified (S)ELF file.
+	
+	for(int i = 1; i< Rpcs3App::argc ; ++i)
+	{
+		if(argv[i] == "--nogui")
+		{
+			use_gui = false;
+		}
+	}
 
 	if (Rpcs3App::argc > 1)
 	{
 		// Force this value to be true
 		Ini.HLEExitOnStop.SetValue(true);
-
+		
 		Emu.SetPath(fmt::ToUTF8(argv[1]));
 		Emu.Load();
 		Emu.Run();
@@ -72,7 +83,7 @@ void Rpcs3App::SendDbgCommand(DbgCommand id, CPUThread* thr)
 	AddPendingEvent(event);
 }
 
-Rpcs3App::Rpcs3App()
+Rpcs3App::Rpcs3App(): use_gui(true)
 {
 	#if defined(__UNIX__) && !defined(__APPLE__)
 	XInitThreads();

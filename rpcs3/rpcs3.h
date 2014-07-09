@@ -18,6 +18,8 @@ public:
 	Rpcs3App();
 
 	void SendDbgCommand(DbgCommand id, CPUThread* thr=nullptr);
+private:
+	bool use_gui;
 };
 
 DECLARE_APP(Rpcs3App)
