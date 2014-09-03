@@ -1,4 +1,5 @@
 #pragma once
+#include <emmintrin.h> //for __m128 and __m128i
 #include "PPCThread.h"
 #include "Emu/Event.h"
 #include "MFC.h"

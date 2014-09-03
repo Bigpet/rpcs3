@@ -1,7 +1,7 @@
 #pragma once
 
 #define ASMJIT_STATIC
-
+#include <emmintrin.h> //for __m128i and __m128
 #include "asmjit.h"
 
 using namespace asmjit;
