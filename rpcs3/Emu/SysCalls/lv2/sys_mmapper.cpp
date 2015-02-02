@@ -5,9 +5,38 @@
 #include "sys_memory.h"
 #include "sys_mmapper.h"
 #include <map>
+#include <array>
+#include <utility>
 
 SysCallBase sys_mmapper("sys_mmapper");
 std::map<u32, u32> mmapper_info_map;
+
+//TODO: don't use this hardcoded but integrate it into Memory.cpp somehow
+std::array<std::pair<u32, u32>, 5> mappable_mem = 
+{{
+	{ 0x60000000, 0 },
+	{ 0x70000000, 0 },
+	{ 0x80000000, 0 },
+	{ 0x90000000, 0 },
+	{ 0xA0000000, 0 }
+}};
+
+u32 find_free_address(u32 size, u64 flags)
+{
+	//this is wrong and unsafe
+	flags = flags & SYS_MEMORY_ACCESS_RIGHT_ANY;
+	u32 addr = 0;
+	for (int i = 0; i < mappable_mem.size(); ++i)
+	{
+		if (mappable_mem[i].second == 0 && size > 0)
+		{
+			size -= 0x10000000;
+			mappable_mem[i].second = flags;
+			if (!addr) addr = mappable_mem[i].first;
+		}
+	}
+	return addr;
+}
 
 s32 sys_mmapper_allocate_address(u32 size, u64 flags, u32 alignment, u32 alloc_addr)
 {
@@ -18,6 +47,12 @@ s32 sys_mmapper_allocate_address(u32 size, u64 flags, u32 alignment, u32 alloc_a
 	if(alignment > 0x80000000)
 		return CELL_EALIGN;
 
+	// Check requested size, should be a multiple of 265 MB
+	if ((size % 0x10000000) || size == 0)
+	{
+		return CELL_EALIGN;
+	}
+
 	// Check page size.
 	u32 addr;
 	switch(flags & (SYS_MEMORY_PAGE_SIZE_1M | SYS_MEMORY_PAGE_SIZE_64K))
@@ -26,16 +61,19 @@ s32 sys_mmapper_allocate_address(u32 size, u64 flags, u32 alignment, u32 alloc_a
 	case SYS_MEMORY_PAGE_SIZE_1M:
 		if(align(size, alignment) & 0xfffff)
 			return CELL_EALIGN;
-		addr = (u32)Memory.Alloc(size, 0x100000);
+		//addr = (u32)Memory.Allocm(size, 0x100000);
 	break;
 
 	case SYS_MEMORY_PAGE_SIZE_64K:
 		if (align(size, alignment) & 0xffff)
 			return CELL_EALIGN;
-		addr = (u32)Memory.Alloc(size, 0x10000);
+		//addr = (u32)Memory.Allocm(size, 0x10000);
 	break;
 	}
 
+	addr = find_free_address(size,flags);
+
+	//if (!addr) return CELL_ENOMEM;
 	// Write back the start address of the allocated area.
 	vm::write32(alloc_addr, addr);
 
@@ -160,9 +198,11 @@ s32 sys_mmapper_map_memory(u32 start_addr, u32 mem_id, u64 flags)
 		return CELL_ESRCH;
 
 	// Map the memory into the process address.
-	if(!Memory.Map(start_addr, info->size))
+	if (!Memory.Map(start_addr, info->size))
+	{
 		sys_mmapper.Error("sys_mmapper_map_memory failed!");
-
+	//	return CELL_EBUSY;
+	}
 	// Keep track of mapped addresses.
 	mmapper_info_map[start_addr] = mem_id;
 

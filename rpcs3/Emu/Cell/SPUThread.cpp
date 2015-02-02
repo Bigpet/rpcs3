@@ -1104,13 +1104,13 @@ void SPUThread::StopAndSignal(u32 code)
 	default:
 		if (!SPU.Out_MBox.GetCount())
 		{
-			LOG_ERROR(Log::SPU, "Unknown STOP code: 0x%x (no message)", code);
+			//LOG_ERROR(Log::SPU, "Unknown STOP code: 0x%x (no message)", code);
 		}
 		else
 		{
-			LOG_ERROR(Log::SPU, "Unknown STOP code: 0x%x (message=0x%x)", code, SPU.Out_MBox.GetValue());
+			//LOG_ERROR(Log::SPU, "Unknown STOP code: 0x%x (message=0x%x)", code, SPU.Out_MBox.GetValue());
 		}
-		Emu.Pause();
+		//Emu.Pause();
 		break;
 	}
 }
