@@ -94,11 +94,6 @@ public:
 		return UserMemory->AllocAlign(size, align);
 	}
 
-	u64 Allocm(const u32 size, const u32 align)
-	{
-		return MmaperMem.AllocAlign(size, align);
-	}
-
 	bool Free(const u32 addr)
 	{
 		return UserMemory->Free(addr);

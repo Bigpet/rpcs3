@@ -12,8 +12,11 @@ SysCallBase sys_mmapper("sys_mmapper");
 std::map<u32, u32> mmapper_info_map;
 
 //TODO: don't use this hardcoded but integrate it into Memory.cpp somehow
-std::array<std::pair<u32, u32>, 5> mappable_mem = 
+std::array<std::pair<u32, u32>, 8> mappable_mem = 
 {{
+	{ 0x30000000, 0 },
+	{ 0x40000000, 0 },
+	{ 0x50000000, 0 },
 	{ 0x60000000, 0 },
 	{ 0x70000000, 0 },
 	{ 0x80000000, 0 },

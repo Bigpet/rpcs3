@@ -298,7 +298,7 @@ s32 cellFsStat(vm::ptr<const char> path, vm::ptr<CellFsStat> sb)
 			sb->st_size = f.GetSize();
 			if (sb->st_size != size)
 			{
-				sys_fs->Error("cellFsStat(): size mismatch");
+				sys_fs.Error("cellFsStat(): size mismatch");
 			}
 			return CELL_OK;
 		}
