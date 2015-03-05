@@ -237,11 +237,6 @@ s32 cellFsStat(vm::ptr<const char> path, vm::ptr<CellFsStat> sb)
 	std::string real_path;
 
 	Emu.GetVFS().GetDevice(_path, real_path);
-#ifdef _WIN32
-	std::string from = "/";
-	std::string to = "\\";
-	real_path = fmt::replace_all(real_path, from,to);
-#endif
 
 	int stat_result;
 #ifdef _WIN32
@@ -296,10 +291,6 @@ s32 cellFsStat(vm::ptr<const char> path, vm::ptr<CellFsStat> sb)
 		{
 			sb->st_mode |= CELL_FS_S_IFREG;
 			sb->st_size = f.GetSize();
-			if (sb->st_size != size)
-			{
-				sys_fs.Error("cellFsStat(): size mismatch");
-			}
 			return CELL_OK;
 		}
 	}
